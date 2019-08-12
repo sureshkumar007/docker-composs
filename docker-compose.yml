@@ -1,0 +1,57 @@
+version: "3"
+services:
+
+
+  mongo-db-service:
+    image: mongo:latest
+    container_name: mongo-container
+    ports:
+      - '27017:27017'
+    network_mode: host
+
+
+  api-pattern-service:
+    image: api-image
+    build: api-service/.
+    container_name: api-container
+#    depends_on:
+#      - track-service
+    ports:
+      - '9000:9000'
+#    expose:
+#      -
+
+  config-pattern-service:
+    image: config-image
+    build: config-server/.
+    container_name: config-container
+#    depends_on:
+#      - track-service
+    ports:
+      - '9011:9001'
+
+
+  eureka-server-pattern:
+    image: eureka-image
+    build:
+      eureka-server/.
+    container_name: eureka-container
+#    depends_on:
+
+    ports:
+      - '9012:9002'
+
+  track-service:
+    image: track-image
+    build:
+      mongo-trackservice/.
+    container_name: track-container
+    ports:
+      - '9013:9003'
+
+
+
+
+
+
+
